@@ -1,4 +1,4 @@
-body {
+/* body {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -18,4 +18,31 @@ div {
     font-size: 8vmin;
     text-align: center;
     vertical-align: middle;
+} */
+
+body {
+    font-family: "Arial", sans-serif;
+}
+
+section {
+    text-align: center;
+}
+
+.game--container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 306px;
+    margin: 50px auto;
+}
+
+.cell {
+    font-family: "Permanent Marker", cursive;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 0 0 1px #333333;
+    border: 1px solid #333333;
+    cursor: pointer;
+
+    line-height: 100px;
+    font-size: 60px;
 }

@@ -1,121 +1,45 @@
+
+//!!! CODE 1 !!!
 /*----- constants -----*/
-const winningCombos = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6], 
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-    ];
+// const winningCombos = [
+//     [0, 1, 2],
+//     [3, 4, 5],
+//     [6, 7, 8],
+//     [0, 3, 6], 
+//     [1, 4, 7],
+//     [2, 5, 8],
+//     [0, 4, 8],
+//     [2, 4, 6]
+//     ];
 
-/*----- app's state (variables) -----*/
-
-let board;
-let turn = 'X';
-let win;
-
-/*----- cached element references -----*/
-
-const squares = Array.from(document.querySelectorAll('#board div'));
-
-/*----- event listeners -----*/
-document.getElementById('board').addEventListener('click', handleTurn);
-const messages = document.querySelector('h2');
-document.getElementById('reset-button').addEventListener('click', init);
-
-
-/*----- functions -----*/
-
-function getWinner() {
-    let winner = null;
-    winningCombos.forEach(function(combo, index) {
-        if (board[combo[0]] && board[combo[0]] === board[combo[1]] && board[combo[0]] === board[combo[2]]) winner = board[combo[0]];
-        });
-        return winner ? winner : board.includes('') ? null : 'T';
-};
-
-function handleTurn() {
-    let idx = squares.findIndex(function(square) {
-        return square === event.target;
-    });
-    board[idx] = turn;
-    turn = turn === 'X' ? 'O' : 'X';
-    win = getWinner();
-    render();
-};
-
-function init() {
-    board = [
-    '', '', '',
-    '', '', '',
-    '', '', ''
-    ];
-    render();
-};
-
-function render() {
-    board.forEach(function(mark, index) {
-    //this moves the value of the board item into the squares[idx]
-    squares[index].textContent = mark;
-    });
-    messages.textContent = win === 'T' ? `That's a tie, queen!` : win ? `${win} wins the game!` : `It's ${turn}'s turn!`;
-    };
-
-init();
-
-
-
-
-
-
-
-// console.log('sanity check')
-// /*----- constants -----*/
-// const winningCombinations = [
-//     [0,1,2],
-//     [3,4,5],
-//     [6,7,8],
-//     [0,3,6],
-//     [1,4,7],
-//     [2,5,8],
-//     [0,4,8],
-//     [2,4,6]
-// ];
 // /*----- app's state (variables) -----*/
+
 // let board;
 // let turn = 'X';
 // let win;
+
 // /*----- cached element references -----*/
-// const squares = Array.from(document.querySelectorAll('#board div'))
-// const messages = document.querySelector('h2')
+
+// const squares = Array.from(document.querySelectorAll('#board div'));
+
 // /*----- event listeners -----*/
-// document.getElementById('board').addEventListener('click',handleTurn);
+// document.getElementById('board').addEventListener('click', handleTurn);
+// const messages = document.querySelector('h2');
 // document.getElementById('reset-button').addEventListener('click', init);
+
+
 // /*----- functions -----*/
 
-
-// function init() {
-//     board = [
-//         '','','',
-//         '','','',
-//         '','',''
-//     ];
-//     render();
-// };
-// init()
-
-// function render() {
-//     board.forEach(function(mark,index){
-//         squares[index].textContent = mark;
-//     });
-//     messages.textContent = win === 'T' ? `That's a tie!` : win ? `${win} wins the game!` : `It's ${turn}'s turn!`;
+// function getWinner() {
+//     let winner = null;
+//     winningCombos.forEach(function(combo, index) {
+//         if (board[combo[0]] && board[combo[0]] === board[combo[1]] && board[combo[0]] === board[combo[2]]) winner = board[combo[0]];
+//         });
+//         return winner ? winner : board.includes('') ? null : 'T';
 // };
 
-
-// function handleTurn(event){
-//     let idx = squares.findIndex(function(square){
+// function handleTurn() {
+//     let idx = squares.findIndex(function(square) {
 //         return square === event.target;
 //     });
 //     board[idx] = turn;
@@ -124,13 +48,26 @@ init();
 //     render();
 // };
 
-// function getWinner(){
-//     let winner = null;
-//     winningCombinations.forEach(function(combo,index){
-//         if (board[combo[0]] && board[combo[0]] === board[combo[1]] && board[combo[0]] === board[combo[2]]) winner = board[combo[0]];
-//     });
-//     return winner ? winner : board.includes('') ? null : 'T';
+// function init() {
+//     board = [
+//     '', '', '',
+//     '', '', '',
+//     '', '', ''
+//     ];
+//     render();
 // };
+
+// function render() {
+//     board.forEach(function(mark, index) {
+//     //this moves the value of the board item into the squares[idx]
+//     squares[index].textContent = mark;
+//     });
+//     messages.textContent = win === 'T' ? `That's a tie, queen!` : win ? `${win} wins the game!` : `It's ${turn}'s turn!`;
+//     };
+
+// init();
+
+
 
 
 
@@ -280,90 +217,104 @@ init();
 
 
 // !!! CODE 2 !!!
-// const statusDisplay = document.querySelector('.game--status');
 
-// let gameActive = true;
-// let currentPlayer = "X";
-// let gameState = ["", "", "", "", "", "", "", "", ""];
+/*-------------------------------- Constants --------------------------------*/
+const statusDisplay = document.querySelector('.game--status');
 
-// const winningMessage = () => `Player ${currentPlayer} has won!`;
-// const drawMessage = () => `Game ended in a draw!`;
-// const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
+const winningMessage = () => `Player ${currentPlayer} has won!`;
+const drawMessage = () => `Game ended in a draw!`;
+const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
+const winningConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+];
 
-// statusDisplay.innerHTML = currentPlayerTurn();
+/*---------------------------- Variables (state) ----------------------------*/
 
-// const winningConditions = [
-//     [0, 1, 2],
-//     [3, 4, 5],
-//     [6, 7, 8],
-//     [0, 3, 6],
-//     [1, 4, 7],
-//     [2, 5, 8],
-//     [0, 4, 8],
-//     [2, 4, 6]
-// ];
+let gameActive = true;
+let currentPlayer = "X";
+let gameState = ["", "", "", "", "", "", "", "", ""];
 
-// function handleCellPlayed(clickedCell, clickedCellIndex) {
-//     gameState[clickedCellIndex] = currentPlayer;
-//     clickedCell.innerHTML = currentPlayer;
-// }
+/*------------------------ Cached Element References ------------------------*/
 
-// function handlePlayerChange() {
-//     currentPlayer = currentPlayer === "X" ? "O" : "X";
-//     statusDisplay.innerHTML = currentPlayerTurn();
-// }
+document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
+document.querySelector('.gameReset').addEventListener('click', handleRestartGame);
 
-// function handleResultValidation() {
-//     let roundWon = false;
-//     for (let i = 0; i <= 7; i++) {
-//         const winCondition = winningConditions[i];
-//         let a = gameState[winCondition[0]];
-//         let b = gameState[winCondition[1]];
-//         let c = gameState[winCondition[2]];
-//         if (a === '' || b === '' || c === '') {
-//             continue;
-//         }
-//         if (a === b && b === c) {
-//             roundWon = true;
-//             break
-//         }
-//     }
+/*----------------------------- Event Listeners -----------------------------*/
 
-//         if (roundWon) {
-//         statusDisplay.innerHTML = winningMessage();
-//         gameActive = false;
-//         return;
-//     }
 
-//     let roundDraw = !gameState.includes("");
-//     if (roundDraw) {
-//         statusDisplay.innerHTML = drawMessage();
-//         gameActive = false;
-//         return;
-//     }
 
-//     handlePlayerChange();
-// }
+/*-------------------------------- Functions --------------------------------*/
 
-// function handleCellClick(clickedCellEvent) {
-//     const clickedCell = clickedCellEvent.target;
-//     const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+statusDisplay.innerHTML = currentPlayerTurn();
 
-//     if (gameState[clickedCellIndex] !== "" || !gameActive) {
-//         return;
-//     }
 
-//     handleCellPlayed(clickedCell, clickedCellIndex);
-//     handleResultValidation();
-// }
 
-// function handleRestartGame() {
-//     gameActive = true;
-//     currentPlayer = "X";
-//     gameState = ["", "", "", "", "", "", "", "", ""];
-//     statusDisplay.innerHTML = currentPlayerTurn();
-//     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
-// }
+function handleCellPlayed(clickedCell, clickedCellIndex) {
+    gameState[clickedCellIndex] = currentPlayer;
+    clickedCell.innerHTML = currentPlayer;
+}
 
-// document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
-// document.querySelector('.game--restart').addEventListener('click', handleRestartGame);
+function handlePlayerChange() {
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    statusDisplay.innerHTML = currentPlayerTurn();
+}
+
+function handleResultValidation() {
+    let roundWon = false;
+    for (let i = 0; i <= 7; i++) {
+        const winCondition = winningConditions[i];
+        let a = gameState[winCondition[0]];
+        let b = gameState[winCondition[1]];
+        let c = gameState[winCondition[2]];
+        if (a === '' || b === '' || c === '') {
+            continue;
+        }
+        if (a === b && b === c) {
+            roundWon = true;
+            break
+        }
+    }
+
+        if (roundWon) {
+        statusDisplay.innerHTML = winningMessage();
+        gameActive = false;
+        return;
+    }
+
+    let roundDraw = !gameState.includes("");
+    if (roundDraw) {
+        statusDisplay.innerHTML = drawMessage();
+        gameActive = false;
+        return;
+    }
+
+    handlePlayerChange();
+}
+
+function handleCellClick(clickedCellEvent) {
+    const clickedCell = clickedCellEvent.target;
+    const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+
+    if (gameState[clickedCellIndex] !== "" || !gameActive) {
+        return;
+    }
+
+    handleCellPlayed(clickedCell, clickedCellIndex);
+    handleResultValidation();
+}
+
+function handleRestartGame() {
+    gameActive = true;
+    currentPlayer = "X";
+    gameState = ["", "", "", "", "", "", "", "", ""];
+    statusDisplay.innerHTML = currentPlayerTurn();
+    document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
+}
+

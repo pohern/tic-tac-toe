@@ -46,7 +46,7 @@ function handlePlayerChange() {
     statusDisplay.innerHTML = currentPlayerTurn();
 }
 
-function handleResultValidation() {
+function render() {
     let roundWon = false;
     for (let i = 0; i <= 7; i++) {
         const winCondition = winningConditions[i];
@@ -87,7 +87,7 @@ function handleCellClick(clickedCellEvent) {
     }
 
     handleCellPlayed(clickedCell, clickedCellIndex);
-    handleResultValidation();
+    render();
 }
 
 function handleRestartGame() {
